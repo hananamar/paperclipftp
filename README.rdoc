@@ -12,31 +12,34 @@ Useful for CDNs with ftp access method for file uploading.
 
 In your model:
 
-  class User < ActiveRecord::Base
-    has_attached_file :avatar,
-                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                      :path => "/path-to-images/:attachment/:id/:style/:filename",
-                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
-                      :storage => :ftp,
-                      :ftp_credentials => Rails.root.join('config', 'paperclipftp.yaml')
-  end
+    class User < ActiveRecord::Base
+	    has_attached_file :avatar,
+	                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
+	                      :path => "/path-to-images/:attachment/:id/:style/:filename",
+	                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
+	                      :storage => :ftp,
+	                      :ftp => Rails.root.join('config', 'paperclipftp.yaml')
+	  end
 
-or
+	or
 
-  class User < ActiveRecord::Base
-    has_attached_file :avatar,
-                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                      :path => "/path-to-images/:attachment/:id/:style/:filename",
-                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
-                      :storage => :ftp,
-                      :ftp_credentials => { :host => 'ftp.domain.com', :username => 'username', :password => 'password' },
-                      :ftp_passive_mode => false,
-                      :ftp_timeout => 90,
-                      :ftp_verify_size_on_upload => false,
-                      :ftp_debug_mode => false
-  end
+	  class User < ActiveRecord::Base
+	    has_attached_file :avatar,
+	                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
+	                      :path => "/path-to-images/:attachment/:id/:style/:filename",
+	                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
+	                      :storage => :ftp,
+	                      :ftp => { 
+	                        :host => 'ftp.domain.com', 
+	                        :username => 'username', 
+	                        :password => 'password' 
+	                        :passive_mode => false,
+	                        :timeout => 90,
+	                        :verify_size_on_upload => false,
+	                        :debug_mode => false
+	                      }
 
-Options storage, ftp_credentials, path and url are mandatory.
+Options storage, ftp, path and url are mandatory.
 
 * +storage+: Should be set to 'ftp' value in order to utilize paperclipftp plugin
 * +ftp_credentials+: Takes a path, a File, or a Hash. The path (or File) must point

@@ -6,11 +6,11 @@ module Paperclip
       def self.extended base
         require 'net/ftp'
         base.instance_eval do
-          @ftp_credentials = parse_credentials(@options[:ftp_credentials])
-          @passive_mode = !!@options[:ftp_passive_mode]
-          @debug_mode = !!@options[:ftp_debug_mode]
-          @verify_size = !!@options[:ftp_verify_size_on_upload]
-          @timeout = @options[:ftp_timeout] || 3600
+          @ftp_credentials = parse_credentials(@options[:ftp])
+          @passive_mode = !!@ftp_credentials[:passive_mode]
+          @debug_mode = !!@ftp_credentials[:debug_mode]
+          @verify_size = !!@ftp_credentials[:verify_size_on_upload]
+          @timeout = @ftp_credentials[:timeout] || 3600
         end
         # it is better to share and keep ftp connection because otherwise some methods (like
         # exists?, to_file etc) will open new connection each and every time without closing it - bad
@@ -48,7 +48,6 @@ module Paperclip
       def flush_writes
         @queued_for_write.each do |style, file|
           Timeout::timeout(@timeout, FtpTimeout) do
-            file.close
             remote_path = ftp_path(style)
             log("uploading #{remote_path}")
             first_try = true
