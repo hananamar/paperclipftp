@@ -12,32 +12,32 @@ Useful for CDNs with ftp access method for file uploading.
 
 In your model:
 
-    class User < ActiveRecord::Base
-	    has_attached_file :avatar,
-	                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
-	                      :path => "/path-to-images/:attachment/:id/:style/:filename",
-	                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
-	                      :storage => :ftp,
-	                      :ftp => Rails.root.join('config', 'paperclipftp.yaml')
+	class User < ActiveRecord::Base
+		has_attached_file :avatar,
+						  :styles => { :medium => "300x300>", :thumb => "100x100>" },
+						  :path => "/path-to-images/:attachment/:id/:style/:filename",
+						  :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
+						  :storage => :ftp,
+						  :ftp => Rails.root.join('config', 'paperclipftp.yaml')
 	  end
 
 	or
 
-	  class User < ActiveRecord::Base
-	    has_attached_file :avatar,
-	                      :styles => { :medium => "300x300>", :thumb => "100x100>" },
-	                      :path => "/path-to-images/:attachment/:id/:style/:filename",
-	                      :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
-	                      :storage => :ftp,
-	                      :ftp => { 
-	                        :host => 'ftp.domain.com', 
-	                        :username => 'username', 
-	                        :password => 'password' 
-	                        :passive_mode => false,
-	                        :timeout => 90,
-	                        :verify_size_on_upload => false,
-	                        :debug_mode => false
-	                      }
+	class User < ActiveRecord::Base
+		has_attached_file :avatar,
+		  :styles => { :medium => "300x300>", :thumb => "100x100>" },
+		  :path => "/path-to-images/:attachment/:id/:style/:filename",
+		  :url => "http://my-cdn-domain.com/:attachment/:id/:style/:filename",
+		  :storage => :ftp,
+		  :ftp => { 
+			:host => 'ftp.domain.com', 
+			:username => 'username', 
+			:password => 'password' 
+			:passive_mode => false,
+			:timeout => 90,
+			:verify_size_on_upload => false,
+			:debug_mode => false
+		  }
 
 Options storage, ftp, path and url are mandatory.
 
@@ -64,10 +64,10 @@ Options storage, ftp, path and url are mandatory.
 
 Other options are optional.
 
-* +ftp_passive_mode+: True if ftp communication should happen in passive mode
-* +ftp_timeout+: Max amount of time in seconds to allocate to ftp operations of the plugin
-* +ftp_debug_mode+: If true, dumps copy of all ftp commands to stderr
-* +ftp_verify_size_on_upload+: If true, file size will be verified after each upload
+* +passive_mode+: True if ftp communication should happen in passive mode
+* +timeout+: Max amount of time in seconds to allocate to ftp operations of the plugin
+* +debug_mode+: If true, dumps copy of all ftp commands to stderr
+* +verify_size_on_upload+: If true, file size will be verified after each upload
 
 == Copyright
 
